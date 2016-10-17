@@ -26,10 +26,10 @@ class DBHelper:
 	def add_input(self, data):
 		connection = self.connect()
 		try:
-			# The following introduces a deliberate security flaw. See section on SQL injection below
-			query = "INSERT INTO crimes (description) VALUES ('{}');".format(data) # VALUES后面括号内数据对应的是前面括号内容
+			# small fix to SQL injection
+			query = "INSERT INTO crimes (description) VALUES (%s);"
 			with connection.cursor() as cursor:
-				cursor.execute(query) #执行请求操作
+				cursor.execute(query, data) #执行请求操作
 				connection.commit() #不同于读取数据，插入数据对数据库修改了所以要提交修改才能生效
 		finally:
 			connection.close()
