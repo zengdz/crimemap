@@ -21,7 +21,8 @@ def home():
 	except Exception as e:
 		print(e)
 		data = None
-	return render_template("home.html", data=data)
+	return render_template("home_google.html", data=data)
+	#前端显示地图可以选择谷歌地图或者百度地图home_google或者home_baidu
 
 @app.route("/add", methods=["POST"])
 def add():

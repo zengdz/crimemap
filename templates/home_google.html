@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+
+  <body>
+    <!--此处的div是为了容纳JavaScript的组件，通过getElementById('map')来匹配-->
+    <div id="map"></div>
+
+    <script type="text/javascript">
+		var map; //把变量map放在函数外部，用作全局变量
+		function initMap() {
+			var mapOptions = {center: {lat: 39.915, lng: 116.404}, zoom: 8}
+			map = new google.maps.Map(document.getElementById('map'), mapOptions);
+			//添加一个对鼠标单击的监听事件，构建匿名函数参数是该事件，随后触发函数placeMarker
+			//函数placeMarker的参数是点击事件的经纬度
+			google.maps.event.addListener(map, 'click', function(event){placeMarker(event.latLng);});
+		}
+
+		function placeMarker(location) {
+			var marker = new google.maps.Marker({position: location, map: map});
+		}
+    </script>
+
+    <!-- script标记中包含的URL是一个JavaScript文件的位置，该文件用于加载 Google Maps API 所需的所有符号和定义。此 script 标记为必填项-->
+    <!-- Web 安全性相当重要，尽可能使用 HTTPS。使用上文提供的 <script> 标记通过 HTTPS 加载 Google Maps JavaScript API-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsoSHWM0pzxvZzlWZ9XuO2pUoDKs3oCU&callback=initMap"></script>
+    <!--async 属性允许浏览器在 Maps API 加载的同时渲染网站的其余内容。当 API 就绪时，它将调用使用 callback 参数指定的函数。-->
+
+  </body>
+
+</html>
+
