@@ -1,3 +1,5 @@
+#coding:utf-8
+#服务器使用的是Python2，代码里含有中文时需要指明程序文件的编码
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -23,6 +25,16 @@ def home():
 		data = None
 	return render_template("home_google.html", data=data)
 	#前端显示地图可以选择谷歌地图或者百度地图home_google或者home_baidu
+
+@app.route("/submitrecord", methods=['POST'])
+def submitrecord():
+	category = request.form.get("category")
+	date = request.form.get("date")
+	latitude = float(request.form.get("latitude"))
+	longitude = float(request.form.get("longitude"))
+	description = request.form.get("description")
+	DB.add_record(category, date, latitude, longitude, description)
+	return home()
 
 @app.route("/add", methods=["POST"])
 def add():

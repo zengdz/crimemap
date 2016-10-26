@@ -14,12 +14,13 @@
     <div id="map"></div>
 
     <div id="recordform">
-		<h2>有趣的不妨记录下来</h2>
+		<h2>有趣的事不妨记录下来</h2>
 		<form action="/submitrecord" method="POST">
-			<label for="category">Category</label>
+			<!--这里后续打算做成城市选择，需要改name和id，还要保存中文到数据库-->
+			<label for="category">城市</label>
 			<select name="category" id="category">
-				<option value="eating">娱乐</option>
-				<option value="playing">学习</option>
+				<option value="广州">广州</option>
+				<option value="深圳">深圳</option>
 			</select>
 			<label for="date">日期</label>
 				<input name="date" id="date" type="date">
@@ -27,8 +28,8 @@
 				<input name="latitude" id="latitude" type="text">
 			<label for="longitude">Longitude</label>
 				<input name="longitude" id="longitude" type="text">
-			<label for="description">描述下呗~</label>
-				<textarea name="description" id="description" placeholder="干什么去了..."></textarea>
+			<label for="description">描述下呗</label>
+				<textarea name="description" id="description" placeholder="今天我..."></textarea>
 			<input type="submit" value="Submit">
 		</form>
 	</div>

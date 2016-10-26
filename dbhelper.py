@@ -27,7 +27,7 @@ class DBHelper:
 		connection = self.connect()
 		try:
 			# small fix to SQL injection
-			query = "INSERT INTO crimes (description) VALUES (%s);"
+			query = "INSERT INTO crimes (description) VALUES (%s);" #作为测试用只插入一个description数据
 			with connection.cursor() as cursor:
 				cursor.execute(query, data) #执行请求操作
 				connection.commit() #不同于读取数据，插入数据对数据库修改了所以要提交修改才能生效
@@ -44,3 +44,14 @@ class DBHelper:
 		finally:
 			connection.close()
 
+	def add_record(self, category, date, latitude, longitude, description):
+		connection = self.connect()
+		try:
+			query = "INSERT INTO crimes (category, date, latitude, longitude, description) VALUES (%s, %s, %s, %s, %s);"
+			with connection.cursor() as cursor:
+				cursor.execute(query, (category, date, latitude, longitude, description))
+				connection.commit()
+			except Exception as e:
+				print(e)
+		finally:
+			connection.close()

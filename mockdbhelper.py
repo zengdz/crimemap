@@ -8,6 +8,8 @@ class MockDBHelper:
 		pass
 	def clear_all(self):
 		pass
+	def add_record(self, category, date, latitude, longitude, description):
+		pass
 
 
 	
