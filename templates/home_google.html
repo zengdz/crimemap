@@ -2,35 +2,32 @@
 <html>
 
   <head>
-  	<title>我和城市的故事</title>
+  	<title>大城小事</title>
   	<meta charset="utf-8">
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; width: 70% }
-    </style>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css') }}"/>
   </head>
 
   <body>
   	<h1>我与广州的故事</h1>
-  	<p>城市里留下了我的哪些足迹...</p>
+  	<p>大大的城市里留下了我的那些小事...</p>
     <!--此处的div是为了容纳JavaScript的组件，通过getElementById('map')来匹配-->
     <div id="map"></div>
 
     <div id="recordform">
-		<h2>记录新鲜事</h2>
+		<h2>有趣的不妨记录下来</h2>
 		<form action="/submitrecord" method="POST">
 			<label for="category">Category</label>
 			<select name="category" id="category">
-				<option value="eating">吃喝</option>
-				<option value="playing">游玩</option>
+				<option value="eating">娱乐</option>
+				<option value="playing">学习</option>
 			</select>
-			<label for="date">Date</label>
-				<input name="日期" id="date" type="date">
+			<label for="date">日期</label>
+				<input name="date" id="date" type="date">
 			<label for="latitude">Latitude</label>
 				<input name="latitude" id="latitude" type="text">
 			<label for="longitude">Longitude</label>
 				<input name="longitude" id="longitude" type="text">
-			<label for="description">Description</label>
+			<label for="description">描述下呗~</label>
 				<textarea name="description" id="description" placeholder="干什么去了..."></textarea>
 			<input type="submit" value="Submit">
 		</form>
@@ -57,6 +54,9 @@
 			else {
 				marker = new google.maps.Marker({position: location, map: map});
 			}
+			//把鼠标点击处的坐标传递给经纬度ElementId，表单的经纬度自动填充
+			document.getElementById('latitude').value = location.lat();
+			document.getElementById('longitude').value = location.lng();
 		}
     </script>
 
