@@ -1,17 +1,20 @@
 #coding: utf-8
 import pymysql
 import dbconfig
+import datetime
 
 #所有的数据操作都放在try-finally里面，以便数据库最终都能顺利关闭连接
 class DBHelper:
 
+	#数据库连接，每次操作数据表格前都要连接，末尾指定编码
 	def connect(self, database="crimemap"):
 		return pymysql.connect(host='localhost',
 		user=dbconfig.db_user,
 		passwd=dbconfig.db_password,
-		db=database)
+		db=database,
+        charset = 'utf8')
 
-	#Reading data
+	#之前测试实验从crimes获取description数据
 	def get_all_inputs(self):
 		connection = self.connect() #每次操作之前都要先和数据库建立连接
 		try:
@@ -22,7 +25,7 @@ class DBHelper:
 		finally:
 			connection.close()
 
-	#Inserting data
+	#之前测试实验向crimes插入description数据
 	def add_input(self, data):
 		connection = self.connect()
 		try:
@@ -34,6 +37,7 @@ class DBHelper:
 		finally:
 			connection.close()
 
+	#删除crimes表格的所有数据
 	def clear_all(self):
 		connection = self.connect()
 		try:
@@ -53,5 +57,26 @@ class DBHelper:
 				connection.commit()
 		except Exception as e:
 			print(e)
+		finally:
+			connection.close()
+	
+	def get_all_records(self):
+		connection = self.connect()
+		try:
+			query = "SELECT latitude, longitude, date, category, description FROM crimes;"
+			with connection.cursor() as cursor:
+				cursor.execute(query)
+			named_crimes = []
+			#从cursor提取元组数据转换为JSON数据保存到列表，方便后面在JavaScript处理
+			for crime in cursor:
+				named_crime = {
+					'latitude': crime[0],
+					'longitude': crime[1],
+					'date': datetime.datetime.strftime(crime[2], '%Y-%m-%d'),
+					'category': crime[3],
+					'description': crime[4]
+				}
+				named_crimes.append(named_crime)
+			return named_crimes
 		finally:
 			connection.close()

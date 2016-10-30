@@ -44,6 +44,15 @@
 			//添加一个对鼠标单击的监听事件，构建匿名函数参数是该事件，随后触发函数placeMarker
 			//函数placeMarker的参数是点击事件的经纬度
 			google.maps.event.addListener(map, 'click', function(event){placeMarker(event.latLng);});
+			placeRecords({{records | safe}}); //应用启动后最后调用placeRecords函数把所有保存的记录显示在地图上
+		}
+
+		function placeRecords(records) {
+			for (i=0; i<records.length; i++) {
+				record = new google.maps.Marker( {
+				position: new google.maps.LatLng(records[i].latitude, records[i].longitude),
+				map: map,title: records[i].date + "\n" + records[i].category + "\n" + records[i].description});
+			}
 		}
 
 		function placeMarker(location) {
