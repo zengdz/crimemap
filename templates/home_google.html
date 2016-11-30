@@ -5,34 +5,10 @@
   	<title>大城小事</title>
   	<meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css') }}"/>
-  </head>
-
-  <body>
-  	<h1>我与广州的故事</h1>
-  	<p>大大的城市里留下了我的那些小事...</p>
-    <!--此处的div是为了容纳JavaScript的组件，通过getElementById('map')来匹配-->
-    <div id="map"></div>
-
-    <div id="recordform">
-		<h2>有趣的事不妨记录下来</h2>
-		<form action="/submitrecord" method="POST">
-			<!--这里后续打算做成城市选择，需要改name和id，还要保存中文到数据库-->
-			<label for="category">城市</label>
-			<select name="category" id="category">
-				<option value="广州">广州</option>
-				<option value="深圳">深圳</option>
-			</select>
-			<label for="date">日期</label>
-				<input name="date" id="date" type="date">
-			<label for="latitude">Latitude</label>
-				<input name="latitude" id="latitude" type="text">
-			<label for="longitude">Longitude</label>
-				<input name="longitude" id="longitude" type="text">
-			<label for="description">描述下呗</label>
-				<textarea name="description" id="description" placeholder="今天我..."></textarea>
-			<input type="submit" value="Submit">
-		</form>
-	</div>
+    <!-- script标记中包含的URL是一个JavaScript文件的位置，该文件用于加载 Google Maps API 所需的所有符号和定义。此 script 标记为必填项-->
+    <!-- Web 安全性相当重要，尽可能使用 HTTPS。使用上文提供的 <script> 标记通过 HTTPS 加载 Google Maps JavaScript API-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsoSHWM0pzxvZzlWZ9XuO2pUoDKs3oCU&callback=initMap"></script>
+    <!--async 属性允许浏览器在 Maps API 加载的同时渲染网站的其余内容。当 API 就绪时，它将调用使用 callback 参数指定的函数。-->
 
     <script type="text/javascript">
 		var map; //把变量map放在函数外部，用作全局变量
@@ -69,11 +45,34 @@
 			document.getElementById('longitude').value = location.lng();
 		}
     </script>
+  </head>
 
-    <!-- script标记中包含的URL是一个JavaScript文件的位置，该文件用于加载 Google Maps API 所需的所有符号和定义。此 script 标记为必填项-->
-    <!-- Web 安全性相当重要，尽可能使用 HTTPS。使用上文提供的 <script> 标记通过 HTTPS 加载 Google Maps JavaScript API-->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsoSHWM0pzxvZzlWZ9XuO2pUoDKs3oCU&callback=initMap"></script>
-    <!--async 属性允许浏览器在 Maps API 加载的同时渲染网站的其余内容。当 API 就绪时，它将调用使用 callback 参数指定的函数。-->
+  <body>
+  	<h1>我与广州的故事</h1>
+  	<p>大大的城市里留下了我的那些小事...</p>
+    <!--此处的div是为了容纳JavaScript的组件，通过getElementById('map')来匹配-->
+    <div id="map"></div>
+
+    <div id="recordform">
+		<h2>有趣的事不妨记录下来</h2>
+		<form action="/submitrecord" method="POST">
+			<!--这里后续打算做成城市选择，需要改name和id，还要保存中文到数据库-->
+			<label for="category">城市</label>
+			<select name="category" id="category">
+				<option value="广州">广州</option>
+				<option value="深圳">深圳</option>
+			</select>
+			<label for="date">日期</label>
+				<input name="date" id="date" type="date">
+			<label for="latitude">Latitude</label>
+				<input name="latitude" id="latitude" type="text">
+			<label for="longitude">Longitude</label>
+				<input name="longitude" id="longitude" type="text">
+			<label for="description">描述下呗</label>
+				<textarea name="description" id="description" placeholder="今天我..."></textarea>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
 
   </body>
 

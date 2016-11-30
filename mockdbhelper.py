@@ -11,8 +11,8 @@ class MockDBHelper:
 	def add_record(self, category, date, latitude, longitude, description):
 		pass
 	def get_all_records(self):
-		return [{ 'latitude': -33.301304,
-			'longitude': 26.523355,
+		return [{ 'latitude': 23.1157,
+			'longitude': 113.3009,
 			'date': "2000-01-01",
 			'category': "mugging",
 			'description': "mock description" }]
